@@ -77,7 +77,7 @@ def _handle_captcha(url):
 def _get_page(pagerequest):
     """Return the data for a page on scholar.google.com"""
     # Note that we include a sleep to avoid overloading the scholar server
-    time.sleep(5+random.uniform(0, 5))
+    time.sleep(20+random.uniform(0, 5))
     resp = _SESSION.get(pagerequest, headers=_HEADERS, cookies=_COOKIES)
     if resp.status_code == 200:
         return resp.text
@@ -109,8 +109,8 @@ def _search_scholar_soup(soup):
         if soup.find(class_='gs_ico gs_ico_nav_next'):
             url = soup.find(class_='gs_ico gs_ico_nav_next').parent['href']
             soup = _get_soup(_HOST+url)
-        # if soup.find(id='gs_captcha_f'):
-        #     raise Exception('Captcha')
+        if soup.find(id='gs_captcha_f'):
+            raise Exception('Captcha')
         else:
             break
 
