@@ -1,5 +1,8 @@
 arrow
 beautifulsoup4
 bibtexparser
-pysocks
+PySocks
 requests[security]
+requests[socks]
+stem
+fake_useragent
