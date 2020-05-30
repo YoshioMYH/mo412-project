@@ -186,44 +186,44 @@ class Publication(object):
                 if key == 'authors':
                     self.bib['author'] = ' and '.join(
                         [i.strip() for i in val.text.split(',')])
-                elif key == 'journal':
-                    self.bib['journal'] = val.text
-                elif key == 'volume':
-                    self.bib['volume'] = val.text
-                elif key == 'issue':
-                    self.bib['number'] = val.text
-                elif key == 'pages':
-                    self.bib['pages'] = val.text
-                elif key == 'publisher':
-                    self.bib['publisher'] = val.text
-                elif key == 'Publication date':
+#                 elif key == 'journal':
+#                     self.bib['journal'] = val.text
+#                 elif key == 'volume':
+#                     self.bib['volume'] = val.text
+#                 elif key == 'issue':
+#                     self.bib['number'] = val.text
+#                 elif key == 'pages':
+#                     self.bib['pages'] = val.text
+#                 elif key == 'publisher':
+#                     self.bib['publisher'] = val.text
+#                 elif key == 'Publication date':
 
-                    patterns = ['YYYY/M',
-                                'YYYY/MM/DD',
-                                'YYYY',
-                                'YYYY/M/DD',
-                                'YYYY/M/D',
-                                'YYYY/MM/D']
-                    self.bib['year'] = arrow.get(val.text, patterns).year
-                elif key == 'description':
-                    if val.text[0:8].lower() == 'abstract':
-                        val = val.text[9:].strip()
-                    abstract = val.find(class_='gsh_csp')
-                    if abstract is None:
-                        abstract = val.find(class_='gsh_small')
-                    self.bib['abstract'] = abstract.text
+#                     patterns = ['YYYY/M',
+#                                 'YYYY/MM/DD',
+#                                 'YYYY',
+#                                 'YYYY/M/DD',
+#                                 'YYYY/M/D',
+#                                 'YYYY/MM/D']
+#                     self.bib['year'] = arrow.get(val.text, patterns).year
+#                 elif key == 'description':
+#                     if val.text[0:8].lower() == 'abstract':
+#                         val = val.text[9:].strip()
+#                     abstract = val.find(class_='gsh_csp')
+#                     if abstract is None:
+#                         abstract = val.find(class_='gsh_small')
+#                         self.bib['abstract'] = abstract.text
                 elif key == 'total citations':
                     self.bib['cites'] = re.findall(
                         _SCHOLARPUBRE, val.a['href'])[0]
 
             # number of citation per year
-            years = [int(y.text) for y in soup.find_all(class_='gsc_vcd_g_t')]
-            cites = [int(c.text) for c in soup.find_all(class_='gsc_vcd_g_al')]
-            self.cites_per_year = dict(zip(years, cites))
+#             years = [int(y.text) for y in soup.find_all(class_='gsc_vcd_g_t')]
+#             cites = [int(c.text) for c in soup.find_all(class_='gsc_vcd_g_al')]
+#             self.cites_per_year = dict(zip(years, cites))
 
-            if soup.find('div', class_='gsc_vcd_title_ggi'):
-                self.bib['eprint'] = soup.find(
-                    'div', class_='gsc_vcd_title_ggi').a['href']
+#             if soup.find('div', class_='gsc_vcd_title_ggi'):
+#                 self.bib['eprint'] = soup.find(
+#                     'div', class_='gsc_vcd_title_ggi').a['href']
             self._filled = True
         elif self.source == 'scholar':
             bibtex = self.nav._get_page(self.url_scholarbib)
