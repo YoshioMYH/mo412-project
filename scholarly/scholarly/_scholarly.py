@@ -194,7 +194,7 @@ class _Scholarly:
                     'url_picture': 'https://scholar.google.com/citations?view_op=medium_photo&user=lHrs3Y4AAAAJ'
                 }
         """
-        url = _AUTHSEARCH.format(requests.utils.quote(keyword))
+        url = _KEYWORDSEARCH.format(requests.utils.quote(keyword))
         return self.__nav.search_authors(url)
 
     def search_pubs_custom_url(self, url: str):
